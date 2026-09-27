@@ -7,10 +7,10 @@ Delegates to the deterministic composition pipeline in vera-bot/compose.py.
 from __future__ import annotations
 import os
 import sys
-from typing import Any, Dict, Optional
+from typing import Optional
 
-# Ensure vera-bot directory is on sys.path
-_vera_bot_dir = os.path.join(os.path.dirname(__file__), "vera-bot")
+# Ensure vera-bot directory is on sys.path using absolute path
+_vera_bot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vera-bot")
 if _vera_bot_dir not in sys.path:
     sys.path.insert(0, _vera_bot_dir)
 
@@ -60,7 +60,7 @@ def compose(
 if __name__ == "__main__":
     import json
     
-    print("Testing bot.py compose()...")
+    print("Testing bot.py compose()...\n")
     
     sample_category = {
         "slug": "dentists",
@@ -69,19 +69,20 @@ if __name__ == "__main__":
         "digest": []
     }
     sample_merchant = {
-        "merchant_id": "m_001_drmeera",
+        "merchant_id": "m_002_bharat_dentist_mumbai",
         "category_slug": "dentists",
-        "identity": {"owner_first_name": "Meera", "name": "Dental Care Centre", "locality": "Lajpat Nagar"},
-        "performance": {"views": 1200, "calls": 45, "ctr": 0.021},
+        "identity": {"owner_first_name": "Bharat", "name": "Bharat Dental Care", "locality": "Bandra"},
+        "subscription": {"days_remaining": 12, "plan": "Pro"},
+        "performance": {"views": 1500, "calls": 6, "ctr": 0.025},
         "offers": [{"id": "off_1", "title": "Dental Cleaning @ ₹299", "status": "active"}]
     }
     sample_trigger = {
-        "id": "trg_001",
-        "kind": "recall_due",
-        "urgency": 3,
-        "payload": {"recall_months": 6, "patient_count": 14}
+        "id": "trg_004_perf_dip_bharat",
+        "kind": "perf_dip",
+        "urgency": 4,
+        "payload": {"metric": "calls", "delta_pct": -0.50, "window": "7d", "vs_baseline": 12}
     }
     
     result = compose(sample_category, sample_merchant, sample_trigger)
-    print("Result:")
+    print("Composed Output:")
     print(json.dumps(result, indent=2))

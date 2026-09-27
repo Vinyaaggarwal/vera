@@ -8,10 +8,10 @@ intent routing, and hostile opt-out handling).
 from __future__ import annotations
 import os
 import sys
-from typing import Any, Dict, Optional
+from typing import Any
 
-# Ensure vera-bot directory is on sys.path
-_vera_bot_dir = os.path.join(os.path.dirname(__file__), "vera-bot")
+# Ensure vera-bot directory is on sys.path using absolute path
+_vera_bot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vera-bot")
 if _vera_bot_dir not in sys.path:
     sys.path.insert(0, _vera_bot_dir)
 
@@ -99,4 +99,4 @@ if __name__ == "__main__":
     ]
     for msg in test_msgs:
         res = respond(None, msg)
-        print(f"Input: '{msg[:30]}...' -> Intent: {res['intent']} | Action: {res['action']}")
+        print(f"Input: '{msg[:32]}...' -> Intent: {res['intent']} | Action: {res['action']}")
