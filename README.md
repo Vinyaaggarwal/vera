@@ -1,4 +1,4 @@
-﻿# Vera — Merchant Growth Message Engine
+# Vera — Merchant Growth Message Engine
 
 > **magicpin AI Challenge Entry**  
 > Team: Vera Bot | Model: `deterministic-rule-engine-v1`
@@ -43,7 +43,12 @@ Same input -> Same output. Always. No randomness.
 ```
 vera/
 ├── README.md                        <- you are here
-├── .env                             <- API key for judge LLM (not committed to GitHub)
+├── requirements.txt                 <- top-level project dependencies
+├── .env.example                     <- template for local test runs (API key in local .env, gitignored)
+├── .gitignore                       <- excludes secrets (.env) and caches from git
+├── bot.py                           <- official entrypoint: compose(category, merchant, trigger, customer)
+├── submission.jsonl                 <- pre-computed outputs for 30 canonical test pairs
+├── conversation_handlers.py         <- multi-turn reply handler: respond(state, merchant_message)
 ├── judge_simulator.py               <- official magicpin judge harness
 ├── dataset/
 │   ├── categories/                  <- 5 category JSONs (dentists, salons, ...)
